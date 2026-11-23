@@ -41,6 +41,24 @@ const coverEp02: TikTokCoverProps = {
   avatar: 'guest',
   avatarEmotion: 'angry',
 };
+// Обложка TikTok для серии 3 «Друзья»: идея зрителя и вся команда в ряд
+const coverEp03: TikTokCoverProps = {
+  episode: 3,
+  series: 'СКАТЕРТЬ',
+  sender: 'me · идея зрителя',
+  message: ['позвать друзей', 'и работать'],
+  time: 'комментарий',
+  headline: 'ДРУЗЬЯ.',
+  caption: 'кому чаевые? решаете вы',
+  emotion: 'happy',
+  avatar: 'guest',
+  avatarEmotion: 'happy',
+  crew: [
+    { id: 'beks', x: 190, height: 900, footY: 1860, emotion: 'happy' },
+    { id: 'nadir', x: 890, height: 900, footY: 1860, emotion: 'neutral' },
+    { id: 'akhma', x: 540, height: 1040, footY: 1840, emotion: 'neutral' },
+  ],
+};
 const avatarDefaults: AvatarProps = {
   emotion: 'smirk',
   texts: { channel: '@obshchepit_yama', tagline: 'выживи в общепите' },
@@ -95,6 +113,15 @@ export const RemotionRoot: React.FC = () => {
         id="TikTokCoverEp02"
         component={TikTokCover}
         defaultProps={coverEp02}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={COVER.width}
+        height={COVER.height}
+      />
+      <Composition
+        id="TikTokCoverEp03"
+        component={TikTokCover}
+        defaultProps={coverEp03}
         durationInFrames={1}
         fps={VIDEO.fps}
         width={COVER.width}

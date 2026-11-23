@@ -1,5 +1,6 @@
 import { Character, SceneCharacter, type CharacterId } from '../characters/Character';
 import { GenaLadleInHand } from '../characters/parts';
+import { AkhmaHeld } from '../characters/parts-ep03';
 import type { EmotionName } from '../characters/expressions';
 import { HandDrawn } from '../characters/HandDrawn';
 import { CHAR } from '../characters/palette';
@@ -35,7 +36,11 @@ export type TikTokCoverProps = {
   hero?: CharacterId;
   avatar?: CharacterId;
   avatarEmotion?: EmotionName;
+  // несколько героев в ряд вместо одного (серия 3: команда друзей); тогда hero и emotion не используются
+  crew?: ReadonlyArray<CrewMember>;
 };
+
+export type CrewMember = { id: CharacterId; x: number; height: number; footY: number; emotion: EmotionName };
 
 function PanicRays() {
   const rays = Array.from({ length: 20 }, (_, i) => (i / 20) * Math.PI * 2);
@@ -174,6 +179,7 @@ export function TikTokCover({
   hero = 'kostya',
   avatar = 'eduard',
   avatarEmotion = 'tired',
+  crew,
 }: TikTokCoverProps) {
   // у Гены высокий колпак — опускаем героя, чтобы колпак не упирался в пузырь
   const heroShift = hero === 'gena' ? 110 : 0;
@@ -182,6 +188,20 @@ export function TikTokCover({
       <rect width={COVER.width} height={COVER.height} fill="#3a3640" />
       <PanicRays />
       <Halftone />
+      {crew &&
+        crew.map((member) => (
+          <SceneCharacter
+            key={member.id}
+            id={member.id}
+            emotion={member.emotion}
+            x={member.x}
+            footY={member.footY}
+            height={member.height}
+            boilSeed={4}
+            held={member.id === 'akhma' ? <AkhmaHeld /> : undefined}
+          />
+        ))}
+      {!crew && (
       <g transform={`translate(0 ${heroShift})`}>
       <SceneCharacter
         id={hero}
@@ -193,10 +213,13 @@ export function TikTokCover({
         held={hero === 'gena' ? <GenaLadleInHand angle={-30} /> : undefined}
       />
       </g>
+      )}
       <HandDrawn seed={4} strength={3}>
-        <g transform={`translate(0 ${heroShift})`}>
-          <PanicMarks drops={emotion === 'panic'} />
-        </g>
+        {!crew && (
+          <g transform={`translate(0 ${heroShift})`}>
+            <PanicMarks drops={emotion === 'panic'} />
+          </g>
+        )}
         <SeriesPlate series={series} episode={episode} />
         <ChatBubble sender={sender} message={message} time={time} avatar={avatar} avatarEmotion={avatarEmotion} />
       </HandDrawn>
