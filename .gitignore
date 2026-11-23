@@ -1,0 +1,20 @@
+# В репозиторий идёт только код студии (для Graphify). Всё остальное — локально.
+/*
+!/.gitignore
+
+!/04_ANIMATION — анимация/
+/04_ANIMATION — анимация/node_modules/
+/04_ANIMATION — анимация/public/
+/04_ANIMATION — анимация/out/
+
+!/10_BOT — телеграм-бот/
+/10_BOT — телеграм-бот/.env
+/10_BOT — телеграм-бот/data/
+/10_BOT — телеграм-бот/publish/
+/10_BOT — телеграм-бот/node_modules/
+
+*.mp4
+*.mp3
+*.wav
+*.png
+*.jpg

@@ -1,0 +1,32 @@
+// Цвета персонажей. Головы белые, контур чёрный, одежда — цветные пятна
+export const CHAR = {
+  ink: '#151515',
+  skin: '#fbf9f4',
+  shirt: '#f6f3ec',
+  apron: '#1f1f22',
+  trousers: '#2f3138',
+  suit: '#3d4250',
+  tie: '#e0523e',
+  badge: '#f2c14e',
+  pen: '#3a6fd8',
+  hairDark: '#2a2522',
+  hairGrey: '#b9b7bd',
+  hairBrown: '#8a6440',
+  hairAuburn: '#7a3b2e',
+  sweater: '#5f8f86',
+  mustache: '#4a4540',
+  blush: '#f2a3a0',
+  sweat: '#9fd3f0',
+  mouthInside: '#5a2420',
+  teeth: '#ffffff',
+  tan: '#e2c29b',
+  hairBlack: '#1c1b1f',
+  burgundy: '#8c2f39',
+  gold: '#d9a93a',
+  chefJacket: '#ffffff',
+  chefCheck: '#3a3d45',
+  stubble: '#8f8a85',
+  steel: '#c9ccd2',
+} as const;
+
+export const STROKE = 3;

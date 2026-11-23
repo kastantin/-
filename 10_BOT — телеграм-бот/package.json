@@ -1,0 +1,14 @@
+{
+  "name": "skatert-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Telegram-бот официанта Кости: приветствие в чате, меню, приём идей для сюжета",
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/index.js",
+    "test": "node --test"
+  }
+}
