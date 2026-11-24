@@ -117,7 +117,6 @@ function GenaBackOfHead() {
     <g transform={`translate(${GENA_HEAD.x} ${GENA_HEAD.y}) scale(${GENA_SCALE})`}>
       <path d="M -49 -36 A 61 61 0 1 0 49 -36 Z" fill={CHAR.skin} stroke={INK} strokeWidth={3} />
       <path d="M -50 -34 Q 0 -6 50 -34 L 48 -16 Q 0 4 -48 -16 Z" fill={CHAR.hairDark} />
-      <path d="M -10 50 Q 0 56 10 50" stroke={INK} strokeWidth={2.5} fill="none" />
     </g>
   );
 }
@@ -132,7 +131,7 @@ type KitchenSceneProps = {
   bowlJump?: number;
   steam?: number;
   phase?: number;
-  front?: ReadonlyArray<Actor & { id: CharacterId }>;
+  front?: ReadonlyArray<Actor & { id: CharacterId; held?: React.ReactNode }>;
   sheetOnWall?: number;
   // тарелка борща на раздаче (в серии 3 её нет)
   borscht?: boolean;

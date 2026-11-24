@@ -11,6 +11,8 @@ import { Episode02, type Episode02Props } from './episodes/ep02/Episode02';
 import { EP02_DURATION } from './episodes/ep02/timeline';
 import { Episode03 } from './episodes/ep03/Episode03';
 import { EP03_DURATION } from './episodes/ep03/timeline';
+import { Episode04 } from './episodes/ep04/Episode04';
+import { EP04_DURATION } from './episodes/ep04/timeline';
 
 // Серия 2 — одна версия для всех площадок: мат заменён на «мяу» и 🤬 (решение пользователя 21.11.2026)
 const ep02Props: Episode02Props = { censored: true };
@@ -148,6 +150,14 @@ export const RemotionRoot: React.FC = () => {
         id="Episode03"
         component={Episode03}
         durationInFrames={EP03_DURATION}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
+      <Composition
+        id="Episode04"
+        component={Episode04}
+        durationInFrames={EP04_DURATION}
         fps={VIDEO.fps}
         width={VIDEO.width}
         height={VIDEO.height}
