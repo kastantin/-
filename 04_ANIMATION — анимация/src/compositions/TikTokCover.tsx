@@ -38,6 +38,8 @@ export type TikTokCoverProps = {
   avatarEmotion?: EmotionName;
   // несколько героев в ряд вместо одного (серия 3: команда друзей); тогда hero и emotion не используются
   crew?: ReadonlyArray<CrewMember>;
+  // размер шрифта заголовка, если он длиннее обычного («ХОЛОДНАЯ ВОЙНА.»)
+  headlineSize?: number;
 };
 
 export type CrewMember = { id: CharacterId; x: number; height: number; footY: number; emotion: EmotionName };
@@ -144,7 +146,7 @@ function PanicMarks({ drops: showDrops = true }: { drops?: boolean }) {
 }
 
 // Главная фраза серии крупно, с толстой тёмной обводкой
-function Headline({ text }: { text: string }) {
+function Headline({ text, size = HEADLINE_FONT_SIZE }: { text: string; size?: number }) {
   return (
     <g transform="rotate(-3 540 1500)">
       <text
@@ -152,7 +154,7 @@ function Headline({ text }: { text: string }) {
         y={1530}
         textAnchor="middle"
         fontFamily={TITLE_FONT}
-        fontSize={HEADLINE_FONT_SIZE}
+        fontSize={size}
         letterSpacing={7}
         wordSpacing={28}
         fill={ACCENT}
@@ -180,6 +182,7 @@ export function TikTokCover({
   avatar = 'eduard',
   avatarEmotion = 'tired',
   crew,
+  headlineSize,
 }: TikTokCoverProps) {
   // у Гены высокий колпак — опускаем героя, чтобы колпак не упирался в пузырь
   const heroShift = hero === 'gena' ? 110 : 0;
@@ -223,7 +226,7 @@ export function TikTokCover({
         <SeriesPlate series={series} episode={episode} />
         <ChatBubble sender={sender} message={message} time={time} avatar={avatar} avatarEmotion={avatarEmotion} />
       </HandDrawn>
-      <Headline text={headline} />
+      <Headline text={headline} size={headlineSize} />
       <text
         x={540}
         y={1645}

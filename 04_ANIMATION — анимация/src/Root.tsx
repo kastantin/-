@@ -61,6 +61,21 @@ const coverEp03: TikTokCoverProps = {
     { id: 'akhma', x: 540, height: 1040, footY: 1840, emotion: 'neutral' },
   ],
 };
+// Обложка TikTok для серии 4 «Холодная война»: обиженный Гена с половником
+const coverEp04: TikTokCoverProps = {
+  episode: 4,
+  series: 'СКАТЕРТЬ',
+  sender: 'Гена · повар',
+  message: ['Забыл сказать,', 'Константин.'],
+  time: 'бойкот',
+  headline: 'ХОЛОДНАЯ ВОЙНА.',
+  headlineSize: 78,
+  caption: 'как выкрутиться? решаете вы',
+  emotion: 'angry',
+  hero: 'gena',
+  avatar: 'gena',
+  avatarEmotion: 'angry',
+};
 const avatarDefaults: AvatarProps = {
   emotion: 'smirk',
   texts: { channel: '@obshchepit_yama', tagline: 'выживи в общепите' },
@@ -124,6 +139,15 @@ export const RemotionRoot: React.FC = () => {
         id="TikTokCoverEp03"
         component={TikTokCover}
         defaultProps={coverEp03}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={COVER.width}
+        height={COVER.height}
+      />
+      <Composition
+        id="TikTokCoverEp04"
+        component={TikTokCover}
+        defaultProps={coverEp04}
         durationInFrames={1}
         fps={VIDEO.fps}
         width={COVER.width}
