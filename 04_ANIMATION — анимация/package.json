@@ -11,6 +11,7 @@
     "render:ep02": "remotion render src/index.ts Episode02 D:/Скатерть/renders/ep02_nol_golosov.mp4 --codec=h264",
     "render:ep03": "remotion render src/index.ts Episode03 D:/Скатерть/renders/ep03_druzya.mp4 --codec=h264",
     "render:ep04": "remotion render src/index.ts Episode04 D:/Скатерть/renders/ep04_holodnaya_vojna.mp4 --codec=h264",
+    "render:ep05": "remotion render src/index.ts Episode05 D:/Скатерть/renders/ep05_druzhba_druzhboj.mp4 --codec=h264",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

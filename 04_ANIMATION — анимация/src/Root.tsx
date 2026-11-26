@@ -13,6 +13,8 @@ import { Episode03 } from './episodes/ep03/Episode03';
 import { EP03_DURATION } from './episodes/ep03/timeline';
 import { Episode04 } from './episodes/ep04/Episode04';
 import { EP04_DURATION } from './episodes/ep04/timeline';
+import { Episode05 } from './episodes/ep05/Episode05';
+import { EP05_DURATION } from './episodes/ep05/timeline';
 
 // Серия 2 — одна версия для всех площадок: мат заменён на «мяу» и 🤬 (решение пользователя 21.11.2026)
 const ep02Props: Episode02Props = { censored: true };
@@ -75,6 +77,20 @@ const coverEp04: TikTokCoverProps = {
   hero: 'gena',
   avatar: 'gena',
   avatarEmotion: 'angry',
+};
+// Обложка TikTok для серии 5 «Дружба дружбой»: Костя с вымученной улыбкой и ультиматум хозяйки
+const coverEp05: TikTokCoverProps = {
+  episode: 5,
+  series: 'СКАТЕРТЬ',
+  sender: 'Маргарита Львовна · хозяйка',
+  message: ['Вас двое.', 'В пятницу решу.'],
+  time: 'ультиматум',
+  headline: 'ДРУЖБА ДРУЖБОЙ.',
+  headlineSize: 78,
+  caption: 'кого выберут? решаете вы',
+  emotion: 'smirk',
+  avatar: 'owner',
+  avatarEmotion: 'neutral',
 };
 const avatarDefaults: AvatarProps = {
   emotion: 'smirk',
@@ -162,6 +178,15 @@ export const RemotionRoot: React.FC = () => {
         height={COVER.height}
       />
       <Composition
+        id="TikTokCoverEp05"
+        component={TikTokCover}
+        defaultProps={coverEp05}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={COVER.width}
+        height={COVER.height}
+      />
+      <Composition
         id="Episode01"
         component={Episode01}
         durationInFrames={EP01_DURATION}
@@ -190,6 +215,14 @@ export const RemotionRoot: React.FC = () => {
         id="Episode04"
         component={Episode04}
         durationInFrames={EP04_DURATION}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
+      <Composition
+        id="Episode05"
+        component={Episode05}
+        durationInFrames={EP05_DURATION}
         fps={VIDEO.fps}
         width={VIDEO.width}
         height={VIDEO.height}
