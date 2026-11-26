@@ -2,10 +2,11 @@ import { Face } from './Face';
 import { EMOTIONS, type EmotionName, type Expression } from './expressions';
 import { HandDrawn } from './HandDrawn';
 import { CHAR, STROKE } from './palette';
+import { OwnerBody, OwnerEarrings, OwnerHair } from './parts-ep05';
 import { AkhmaBody, AkhmaHead, BeksHair, BossBody, BossGlasses, BossHair, BeksSparkle, NadirHair, TamadaBody, TamadaExtra, TamadaHair } from './parts-ep03';
 import { CasualBody, ChefBody, DimaHair, EduardHair, EduardMustache, GenaHat, GenaStubble, GuestHair, KostyaHair, SuitBody, WaiterBody } from './parts';
 
-export type CharacterId = 'kostya' | 'eduard' | 'dima' | 'guest' | 'gena' | 'beks' | 'akhma' | 'nadir' | 'tamada' | 'boss';
+export type CharacterId = 'kostya' | 'eduard' | 'dima' | 'guest' | 'gena' | 'beks' | 'akhma' | 'nadir' | 'tamada' | 'boss' | 'owner';
 
 interface CharacterDef {
   name: string;
@@ -37,6 +38,7 @@ export const CHARACTERS: Record<CharacterId, CharacterDef> = {
   akhma: { name: 'Ахма', role: 'силач года', body: <AkhmaBody />, hair: <AkhmaHead />, mouthY: 26 },
   nadir: { name: 'Надир', role: 'обычный официант', body: <WaiterBody skin={CHAR.tan} sneakers />, hair: <NadirHair />, mouthY: 26, skin: CHAR.tan },
   boss: { name: 'Начальник корпоратива', role: 'гость банкета', body: <BossBody />, hair: <BossHair />, extra: <BossGlasses />, mouthY: 28 },
+  owner: { name: 'Маргарита Львовна', role: 'хозяйка', body: <OwnerBody />, hair: <OwnerHair />, extra: <OwnerEarrings />, mouthY: 26 },
   tamada: { name: 'Тамада', role: 'ведущий банкета', body: <TamadaBody />, hair: <TamadaHair />, extra: <TamadaExtra />, mouthY: 30 },
 };
 

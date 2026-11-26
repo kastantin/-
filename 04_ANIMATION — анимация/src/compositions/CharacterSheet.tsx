@@ -4,6 +4,7 @@ import { EMOTION_LABELS, type EmotionName } from '../characters/expressions';
 import { COLORS } from '../config';
 import { GenaLadleInHand } from '../characters/parts';
 import { AkhmaHeld } from '../characters/parts-ep03';
+import { RedPenHeld } from '../characters/parts-ep05';
 
 // Лист персонажей: полный рост + 6 эмоций на каждого (4 строки на 1080×1920)
 const CARD_HEIGHT = 405;
@@ -35,6 +36,7 @@ function EmotionCell({ id, emotion, hatRoom = 0 }: { id: CharacterId; emotion: E
 function heldFor(id: CharacterId): React.ReactNode {
   if (id === 'gena') return <GenaLadleInHand />;
   if (id === 'akhma') return <AkhmaHeld />;
+  if (id === 'owner') return <RedPenHeld />;
   return undefined;
 }
 
@@ -87,6 +89,15 @@ const ROWS_EP03: SheetRow[] = [
 
 export function CharacterSheetEp03() {
   return <SheetView title="НОВЫЕ ГЕРОИ" subtitle="серия 3 · «Друзья»" rows={ROWS_EP03} />;
+}
+
+// Лист новой героини серии 5
+const ROWS_EP05: SheetRow[] = [
+  { id: 'owner', pose: 'neutral', emotions: ['neutral', 'skeptical', 'tired', 'angry', 'surprised', 'happy'], tilt: -0.4, scale: 0.9 },
+];
+
+export function CharacterSheetEp05() {
+  return <SheetView title="НОВАЯ ГЕРОИНЯ" subtitle="серия 5 · «Дружба дружбой»" rows={ROWS_EP05} />;
 }
 
 function SheetView({ title, subtitle, rows }: { title: string; subtitle: string; rows: SheetRow[] }) {
