@@ -6,8 +6,8 @@ import { FILES, VOICE_DATA } from './voice-data';
 export const EP06 = { episode: 6, title: 'Тайный гость', ladderStep: 0 } as const;
 export const FPS = 30;
 
-export const VOICE_RATE = 1.15;
-export const NARRATOR_RATE = 1.4;
+export const VOICE_RATE = 1.2;
+export const NARRATOR_RATE = 1.5;
 
 export type SceneId =
   | 'cold'
@@ -28,8 +28,10 @@ export type SceneId =
 
 export type Speaker = 'kostya' | 'eduard' | 'beks' | 'gena' | 'owner' | 'narrator';
 
-// Сцены вертикальной версии 9:16 (сценарий: 1, 2, 5, 8, 9, 10, 11, 12, 14, 15)
-export const VERTICAL_SCENES: ReadonlyArray<SceneId> = ['cold', 'pass', 'split', 'mirror', 'greet', 'seven', 'order', 'passline', 'freeze', 'fork'];
+// Упрощённая серия (решение пользователя 27.11.2026, «давай попробуем»): одна история из семи сцен
+// 1 → 3 → 9 → 10 → 11 → 12 → 15 для обеих версий (16:9 и 9:16). Остальные сцены и их данные оставлены в коде, но не показываются.
+export const ACTIVE_SCENES: ReadonlyArray<SceneId> = ['cold', 'cashier', 'greet', 'seven', 'order', 'passline', 'fork'];
+export const VERTICAL_SCENES: ReadonlyArray<SceneId> = ACTIVE_SCENES;
 
 export function voiceFrames(sec: number, rate = VOICE_RATE): number {
   return Math.round((sec * FPS) / rate);
@@ -87,7 +89,6 @@ const PLAN: ReadonlyArray<{ id: SceneId; lead: number; tail: number; clips: Read
     tail: 10,
     clips: [
       { id: 'margarita_s03', speaker: 'owner', gap: 0, text: 'Соседей проверили — я заказала свою проверку. Тайный гость. Лучший балл — старший официант.', highlight: 'Лучший балл — старший официант.' },
-      { id: 'eduard_s03', speaker: 'eduard', gap: 8, text: 'Я ничего не видел. Но анкету мне тоже заполнят.' },
     ],
   },
   {
@@ -194,6 +195,7 @@ function place(): { scenes: { id: SceneId; from: number; to: number }[]; clips: 
   const scenes: { id: SceneId; from: number; to: number }[] = [];
   let start = 0;
   for (const scene of PLAN) {
+    const active = ACTIVE_SCENES.includes(scene.id);
     let cursor = scene.lead;
     const placed: PlacedClip[] = [];
     scene.clips.forEach((item, i) => {
@@ -205,8 +207,11 @@ function place(): { scenes: { id: SceneId; from: number; to: number }[]; clips: 
     });
     clips[scene.id] = placed;
     const length = cursor + scene.tail;
-    scenes.push({ id: scene.id, from: start, to: start + length });
-    start += length;
+    // неактивные сцены считаются (на них ссылаются события), но в ролик не входят
+    if (active) {
+      scenes.push({ id: scene.id, from: start, to: start + length });
+      start += length;
+    }
   }
   return { scenes, clips };
 }
@@ -395,9 +400,19 @@ export const SFX: Record<SceneId, SfxClip[]> = {
   mirror: [],
   greet: [{ file: 'notify_ding_a.mp3', at: clipEnd('greet', 'kostya_s09') - 6, volume: 0.7 }],
   seven: [{ file: 'card_pop_b.mp3', at: clipSecond('seven', 'eduard_s10', 3.3), volume: 0.6 }],
-  order: [{ file: 'checklist_tick_a.mp3', at: clipEnd('order', 'narr_stejk') - 8, volume: 0.9 }],
-  passline: [{ file: 'plate_rattle_a.mp3', at: 0, volume: 0.35, duration: 40, fade: 10 }],
+  order: [
+    { file: 'checklist_tick_a.mp3', at: clipEnd('order', 'narr_stejk') - 8, volume: 0.9 },
+    { file: 'stopwatch_tick_a.mp3', at: clipEnd('order', 'narr_stejk') - 4, volume: 0.35, duration: sceneLength('order') - clipEnd('order', 'narr_stejk') + 4, fade: 6 },
+  ],
+  passline: [
+    { file: 'steak_sting_a.mp3', at: clipAt('passline', 'gena_s12'), volume: 0.7 },
+    { file: 'stopwatch_tick_a.mp3', at: 0, volume: 0.3, duration: sceneLength('passline'), fade: 6 },
+  ],
   thought: [],
   freeze: [{ file: 'record_scratch_a.mp3', at: clipEnd('freeze', 'eduard_s14') + 4, volume: 0.8 }],
-  fork: [...FORK.options.map((o) => ({ file: 'card_pop_b.mp3', at: o.at, volume: 0.7 })), { file: 'card_pop_b.mp3', at: FORK.voteAt, volume: 0.9 }],
+  fork: [
+    { file: 'stopwatch_tick_b.mp3', at: 0, volume: 0.28, duration: sceneLength('fork'), fade: 12 },
+    ...FORK.options.map((o) => ({ file: 'card_pop_b.mp3', at: o.at, volume: 0.7 })),
+    { file: 'card_pop_b.mp3', at: FORK.voteAt, volume: 0.9 },
+  ],
 };

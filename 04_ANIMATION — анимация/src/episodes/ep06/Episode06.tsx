@@ -1,7 +1,7 @@
 import { AbsoluteFill, Sequence } from 'remotion';
 import { COLORS } from '../../config';
 import { EpisodeFrame } from '../../layout/EpisodeFrame';
-import { Hud, SceneText, ScorePlates } from './overlays';
+import { Hud, SceneText } from './overlays';
 import { SceneAudio } from './SceneAudio';
 import { BetsShot, BoardShot, CashierShot, ColdShot, FreezeShot, ForkShot, GreetShot, MirrorShot, OrderShot, PassLineShot, PassShot, SevenShot, ServeShot, SplitShot, ThoughtShot } from './shots';
 import { EP06, SCENES, VERTICAL, type SceneId } from './timeline';
@@ -33,7 +33,6 @@ function SceneLayers({ id, v }: { id: SceneId; v?: boolean }) {
     <>
       <Shot v={v} />
       <Hud scene={id} v={v} />
-      <ScorePlates scene={id} v={v} />
       <SceneText scene={id} v={v} />
       <SceneAudio scene={id} />
     </>

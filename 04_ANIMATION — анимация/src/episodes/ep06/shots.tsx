@@ -384,13 +384,17 @@ export function ForkShot({ v }: ShotProps) {
           border: '5px solid #151515',
           borderRadius: 999,
           padding: '14px 44px',
+          textAlign: 'center',
+          lineHeight: 1.15,
           fontFamily: 'Segoe UI Black, Arial Black, sans-serif',
-          fontSize: 50,
+          fontSize: 46,
           opacity: vote,
           transform: `scale(${0.85 + 0.15 * vote})`,
         }}
       >
-        {FORK.voteText}
+        Что ответит Костя?
+        <br />
+        Пиши в комментариях
       </div>
     </AbsoluteFill>
   );

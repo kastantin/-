@@ -1,9 +1,9 @@
-import { interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate, Sequence, useCurrentFrame } from 'remotion';
 import { COLORS } from '../../config';
 import { ACCENT, Remark, Subtitle } from '../../layout/EpisodeFrame';
 import { censorText, PopIn } from '../ep02/overlays';
-import { PollTicker, Scoreboard, ShiftTimer, Stopwatch } from '../../scenes/ep06/hud';
-import { FPS, REMARKS, SCORE, SCORE_FLASH, STOPWATCH_START, SUBTITLES, TIMER_LABEL, type SceneId } from './timeline';
+import { ShiftTimer, Stopwatch } from '../../scenes/ep06/hud';
+import { FPS, REMARKS, STOPWATCH_START, SUBTITLES, TIMER_LABEL, type SceneId } from './timeline';
 
 // Поверх сцен серии 6: субтитры (мат → 🤬), табло счёта, таймер смены, секундомер, бегущая строка, плашки.
 // v — вертикаль 9:16: субтитры в центральной трети, нижние ~20% и правый край свободны под интерфейс TikTok.
@@ -48,7 +48,7 @@ function VerticalSubtitle({ text, highlight }: { text: string; highlight?: strin
 export function SceneText({ scene, v }: { scene: SceneId; v?: boolean }) {
   return (
     <>
-      {REMARKS[scene].map((r) => (
+      {(v ? [] : REMARKS[scene]).map((r) => (
         <Sequence key={r.text} from={r.from} durationInFrames={Math.max(1, r.to - r.from)} name={`ремарка: ${r.text}`}>
           <PopIn>
             {v ? (
@@ -88,31 +88,18 @@ function QqeboPlate() {
 // Табло, таймер смены, секундомер, бегущая строка опроса
 export function Hud({ scene, v }: { scene: SceneId; v?: boolean }) {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const [kostya, beks] = SCORE[scene];
-  const flash = SCORE_FLASH[scene];
-  const hot = flash ? frame >= flash.at && frame < flash.at + 24 : false;
   const timer = TIMER_LABEL[scene];
   const stopStart = STOPWATCH_START[scene];
-  const pop = flash ? spring({ frame: frame - flash.at, fps, config: { damping: 7, stiffness: 220 } }) : 1;
   return (
     <>
-      <div style={{ position: 'absolute', top: v ? 70 : 28, left: 0, width: v ? 1080 : 1920, display: 'flex', justifyContent: 'center', transform: `scale(${hot ? 1 + 0.12 * pop : 1})` }}>
-        <Scoreboard kostya={kostya} beks={beks} scale={v ? 1.35 : 1} flash={hot ? flash?.who : undefined} />
-      </div>
       {timer && (
-        <div style={{ position: 'absolute', top: v ? 215 : 128, left: v ? 70 : 32 }}>
+        <div style={{ position: 'absolute', top: v ? 80 : 128, left: v ? 70 : 32 }}>
           <ShiftTimer label={timer.label} urgent={timer.urgent} />
         </div>
       )}
       {stopStart !== undefined && (
-        <div style={{ position: 'absolute', top: v ? 330 : 150, right: v ? 'auto' : 48, left: v ? 70 : 'auto' }}>
+        <div style={{ position: 'absolute', top: v ? 190 : 150, right: v ? 'auto' : 48, left: v ? 70 : 'auto' }}>
           <Stopwatch seconds={stopStart - frame / FPS} size={v ? 1.1 : 1} />
-        </div>
-      )}
-      {scene === 'pass' && (
-        <div style={{ position: 'absolute', top: v ? 280 : 'auto', bottom: v ? 'auto' : 8, left: 0, width: v ? 1080 : 1920, display: 'flex', justifyContent: 'center' }}>
-          <PollTicker text="Вы выбрали: А 67% · Б 33% · 💬 0" />
         </div>
       )}
       {scene === 'cashier' && !v && <QqeboPlate />}
@@ -120,18 +107,3 @@ export function Hud({ scene, v }: { scene: SceneId; v?: boolean }) {
   );
 }
 
-// Плашки очков «БЕКС +1» / «КОСТЯ +1» в момент изменения счёта
-export function ScorePlates({ scene, v }: { scene: SceneId; v?: boolean }) {
-  const frame = useCurrentFrame();
-  const flash = SCORE_FLASH[scene];
-  if (!flash) return null;
-  const p = interpolate(frame, [flash.at, flash.at + 8, flash.at + 40, flash.at + 52], [0, 1, 1, 0], CLAMP);
-  if (p <= 0) return null;
-  return (
-    <div style={{ position: 'absolute', top: v ? 160 : 100, left: 0, width: v ? 1080 : 1920, display: 'flex', justifyContent: 'center', opacity: p, transform: `translateY(${(1 - p) * -10}px)` }}>
-      <div style={{ background: ACCENT, color: COLORS.paper, border: `3px solid ${COLORS.ink}`, borderRadius: 12, padding: '4px 22px', fontFamily: 'Segoe UI Black, Arial Black, sans-serif', fontSize: v ? 44 : 36 }}>
-        {flash.who === 'beks' ? 'БЕКС +1' : 'КОСТЯ +1'}
-      </div>
-    </div>
-  );
-}
