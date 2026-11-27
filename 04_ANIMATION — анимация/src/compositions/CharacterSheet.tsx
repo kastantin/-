@@ -5,6 +5,7 @@ import { COLORS } from '../config';
 import { GenaLadleInHand } from '../characters/parts';
 import { AkhmaHeld } from '../characters/parts-ep03';
 import { RedPenHeld } from '../characters/parts-ep05';
+import { BagHeld, NotebookHeld, PhoneHeld } from '../characters/parts-ep06';
 
 // Лист персонажей: полный рост + 6 эмоций на каждого (4 строки на 1080×1920)
 const CARD_HEIGHT = 405;
@@ -37,6 +38,9 @@ function heldFor(id: CharacterId): React.ReactNode {
   if (id === 'gena') return <GenaLadleInHand />;
   if (id === 'akhma') return <AkhmaHeld />;
   if (id === 'owner') return <RedPenHeld />;
+  if (id === 'granny') return <BagHeld />;
+  if (id === 'poet') return <NotebookHeld />;
+  if (id === 'blogger') return <PhoneHeld />;
   return undefined;
 }
 
@@ -98,6 +102,18 @@ const ROWS_EP05: SheetRow[] = [
 
 export function CharacterSheetEp05() {
   return <SheetView title="НОВАЯ ГЕРОИНЯ" subtitle="серия 5 · «Дружба дружбой»" rows={ROWS_EP05} />;
+}
+
+// Лист новых героев серии 6
+const ROWS_EP06: SheetRow[] = [
+  { id: 'granny', pose: 'neutral', emotions: ['neutral', 'surprised', 'happy', 'skeptical', 'sad', 'angry'], tilt: -0.5 },
+  { id: 'poet', pose: 'neutral', emotions: ['neutral', 'happy', 'surprised', 'sad', 'smirk', 'tired'], tilt: 0.5 },
+  { id: 'blogger', pose: 'happy', emotions: ['happy', 'surprised', 'smirk', 'neutral', 'skeptical', 'angry'], tilt: -0.4 },
+  { id: 'tguest', pose: 'skeptical', emotions: ['skeptical', 'neutral', 'angry', 'smirk', 'surprised', 'tired'], tilt: 0.6 },
+];
+
+export function CharacterSheetEp06() {
+  return <SheetView title="НОВЫЕ ГЕРОИ" subtitle="серия 6 · «Тайный гость»" rows={ROWS_EP06} />;
 }
 
 function SheetView({ title, subtitle, rows }: { title: string; subtitle: string; rows: SheetRow[] }) {

@@ -3,10 +3,11 @@ import { EMOTIONS, type EmotionName, type Expression } from './expressions';
 import { HandDrawn } from './HandDrawn';
 import { CHAR, STROKE } from './palette';
 import { OwnerBody, OwnerEarrings, OwnerHair } from './parts-ep05';
+import { BloggerBody, BloggerHair, GrannyBody, GrannyExtra, GrannyHair, PoetBody, PoetHair } from './parts-ep06';
 import { AkhmaBody, AkhmaHead, BeksHair, BossBody, BossGlasses, BossHair, BeksSparkle, NadirHair, TamadaBody, TamadaExtra, TamadaHair } from './parts-ep03';
 import { CasualBody, ChefBody, DimaHair, EduardHair, EduardMustache, GenaHat, GenaStubble, GuestHair, KostyaHair, SuitBody, WaiterBody } from './parts';
 
-export type CharacterId = 'kostya' | 'eduard' | 'dima' | 'guest' | 'gena' | 'beks' | 'akhma' | 'nadir' | 'tamada' | 'boss' | 'owner';
+export type CharacterId = 'kostya' | 'eduard' | 'dima' | 'guest' | 'gena' | 'beks' | 'akhma' | 'nadir' | 'tamada' | 'boss' | 'owner' | 'granny' | 'poet' | 'blogger' | 'tguest';
 
 interface CharacterDef {
   name: string;
@@ -39,6 +40,11 @@ export const CHARACTERS: Record<CharacterId, CharacterDef> = {
   nadir: { name: 'Надир', role: 'обычный официант', body: <WaiterBody skin={CHAR.tan} sneakers />, hair: <NadirHair />, mouthY: 26, skin: CHAR.tan },
   boss: { name: 'Начальник корпоратива', role: 'гость банкета', body: <BossBody />, hair: <BossHair />, extra: <BossGlasses />, mouthY: 28 },
   owner: { name: 'Маргарита Львовна', role: 'хозяйка', body: <OwnerBody />, hair: <OwnerHair />, extra: <OwnerEarrings />, mouthY: 26 },
+  // серия 6: бабушка «ревизор», гости с блокнотом и телефоном, тайный гость (гостья со стола 7 в очках)
+  granny: { name: 'Бабушка', role: 'ищет туалет', body: <GrannyBody />, hair: <GrannyHair />, extra: <GrannyExtra />, mouthY: 28 },
+  poet: { name: 'Поэт', role: 'гость с блокнотом', body: <PoetBody />, hair: <PoetHair />, mouthY: 26 },
+  blogger: { name: 'Блогерша', role: 'снимает блюдо', body: <BloggerBody />, hair: <BloggerHair />, mouthY: 26 },
+  tguest: { name: 'Тайный гость', role: 'стол 7', body: <CasualBody />, hair: <GuestHair />, extra: <BossGlasses />, mouthY: 26 },
   tamada: { name: 'Тамада', role: 'ведущий банкета', body: <TamadaBody />, hair: <TamadaHair />, extra: <TamadaExtra />, mouthY: 30 },
 };
 

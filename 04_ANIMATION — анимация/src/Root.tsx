@@ -1,7 +1,7 @@
 import { Composition } from 'remotion';
 import { VIDEO } from './config';
 import { StudioTest } from './compositions/StudioTest';
-import { CharacterSheet, CharacterSheetEp03, CharacterSheetEp05 } from './compositions/CharacterSheet';
+import { CharacterSheet, CharacterSheetEp03, CharacterSheetEp05, CharacterSheetEp06 } from './compositions/CharacterSheet';
 import { EpisodePreview, type EpisodePreviewProps } from './compositions/EpisodePreview';
 import { Episode01 } from './episodes/ep01/Episode01';
 import { Avatar, AVATAR_SIZE, type AvatarProps } from './compositions/Avatar';
@@ -131,6 +131,14 @@ export const RemotionRoot: React.FC = () => {
         fps={VIDEO.fps}
         width={1080}
         height={640}
+      />
+      <Composition
+        id="CharacterSheetEp06"
+        component={CharacterSheetEp06}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={1080}
+        height={1920}
       />
       <Composition
         id="Avatar"
