@@ -16,6 +16,8 @@ import { Episode04 } from './episodes/ep04/Episode04';
 import { EP04_DURATION } from './episodes/ep04/timeline';
 import { Episode05 } from './episodes/ep05/Episode05';
 import { EP05_DURATION } from './episodes/ep05/timeline';
+import { Episode06, Episode06Vertical } from './episodes/ep06/Episode06';
+import { EP06_DURATION, EP06_VERTICAL_DURATION } from './episodes/ep06/timeline';
 
 // Серия 2 — одна версия для всех площадок: мат заменён на «мяу» и 🤬 (решение пользователя 21.11.2026)
 const ep02Props: Episode02Props = { censored: true };
@@ -237,6 +239,8 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO.width}
         height={VIDEO.height}
       />
+      <Composition id="Episode06" component={Episode06} durationInFrames={EP06_DURATION} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
+      <Composition id="Episode06Vertical" component={Episode06Vertical} durationInFrames={EP06_VERTICAL_DURATION} fps={VIDEO.fps} width={1080} height={1920} />
       <Composition
         id="EpisodePreview"
         component={EpisodePreview}
