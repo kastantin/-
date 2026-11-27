@@ -4,6 +4,7 @@ import { StudioTest } from './compositions/StudioTest';
 import { CharacterSheet, CharacterSheetEp03, CharacterSheetEp05, CharacterSheetEp06 } from './compositions/CharacterSheet';
 import { EpisodePreview, type EpisodePreviewProps } from './compositions/EpisodePreview';
 import { Ep06Hud } from './compositions/Ep06Hud';
+import { Ep06Props } from './compositions/Ep06Props';
 import { Episode01 } from './episodes/ep01/Episode01';
 import { Avatar, AVATAR_SIZE, type AvatarProps } from './compositions/Avatar';
 import { COVER, TikTokCover, type TikTokCoverProps } from './compositions/TikTokCover';
@@ -18,6 +19,8 @@ import { Episode05 } from './episodes/ep05/Episode05';
 import { EP05_DURATION } from './episodes/ep05/timeline';
 import { Episode06, Episode06Vertical } from './episodes/ep06/Episode06';
 import { EP06_DURATION, EP06_VERTICAL_DURATION } from './episodes/ep06/timeline';
+import { EpisodeNaChay, EpisodeNaChayVertical } from './episodes/ep06c/Episode';
+import { EP06C_DURATION } from './episodes/ep06c/timeline';
 
 // Серия 2 — одна версия для всех площадок: мат заменён на «мяу» и 🤬 (решение пользователя 21.11.2026)
 const ep02Props: Episode02Props = { censored: true };
@@ -143,6 +146,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition id="Ep06Props" component={Ep06Props} durationInFrames={1} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition id="Ep06Hud" component={Ep06Hud} durationInFrames={1} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition
         id="Avatar"
@@ -239,6 +243,8 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO.width}
         height={VIDEO.height}
       />
+      <Composition id="EpisodeNaChay" component={EpisodeNaChay} durationInFrames={EP06C_DURATION} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
+      <Composition id="EpisodeNaChayVertical" component={EpisodeNaChayVertical} durationInFrames={EP06C_DURATION} fps={VIDEO.fps} width={1080} height={1920} />
       <Composition id="Episode06" component={Episode06} durationInFrames={EP06_DURATION} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition id="Episode06Vertical" component={Episode06Vertical} durationInFrames={EP06_VERTICAL_DURATION} fps={VIDEO.fps} width={1080} height={1920} />
       <Composition

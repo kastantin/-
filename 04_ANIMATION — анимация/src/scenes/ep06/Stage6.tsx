@@ -29,6 +29,9 @@ export type Actor = {
   held?: React.ReactNode;
   live?: LiveState;
   bob?: number;
+  // явные позиция и высота в вертикали (если не заданы — считаются автоматически)
+  vx?: number;
+  vh?: number;
 };
 
 // Где у актёра рот в координатах сцены (для плашки 🤬)
@@ -170,7 +173,11 @@ export function Stage6({ bg, actors, boilSeed = 1, vertical = false, focus = 540
   const squeeze = vertical && xs.length > 1 ? Math.min(1, targetGap / Math.max(minGap, 1)) : 1;
   const mid = xs.length > 0 ? (xs[0] + xs[xs.length - 1]) / 2 : focus;
   const place = (x: number) => (vertical ? focus + (x - mid) * squeeze : x);
-  const placed = actors.map((a) => ({ ...a, x: place(a.x), height: (a.height ?? 520) * heightScale }));
+  const placed = actors.map((a) => ({
+    ...a,
+    x: vertical && a.vx !== undefined ? a.vx : place(a.x),
+    height: vertical && a.vh !== undefined ? a.vh : (a.height ?? 520) * heightScale,
+  }));
   const viewBox = vertical ? `${focus - VERTICAL_W / 2} 0 ${VERTICAL_W} ${STAGE_H}` : SCENE_VIEWBOX;
   const width = vertical ? 1080 : VIDEO.width;
   const height = vertical ? 1920 : VIDEO.height;
