@@ -3,6 +3,7 @@ import { VIDEO } from './config';
 import { StudioTest } from './compositions/StudioTest';
 import { CharacterSheet, CharacterSheetEp03, CharacterSheetEp05, CharacterSheetEp06 } from './compositions/CharacterSheet';
 import { EpisodePreview, type EpisodePreviewProps } from './compositions/EpisodePreview';
+import { Ep06Hud } from './compositions/Ep06Hud';
 import { Episode01 } from './episodes/ep01/Episode01';
 import { Avatar, AVATAR_SIZE, type AvatarProps } from './compositions/Avatar';
 import { COVER, TikTokCover, type TikTokCoverProps } from './compositions/TikTokCover';
@@ -140,6 +141,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition id="Ep06Hud" component={Ep06Hud} durationInFrames={1} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition
         id="Avatar"
         component={Avatar}
