@@ -98,6 +98,19 @@ const coverEp05: TikTokCoverProps = {
   avatar: 'owner',
   avatarEmotion: 'neutral',
 };
+// Обложка TikTok для серии 6 «На чай»: Костя над банкой чаевых и записка из неё
+const coverEp06: TikTokCoverProps = {
+  episode: 6,
+  series: 'СКАТЕРТЬ',
+  sender: 'Записка в банке чаевых',
+  message: ['Не ешьте', 'рыбу.'],
+  time: 'чаевые',
+  headline: 'НА ЧАЙ.',
+  caption: 'что выбрать Косте? решаете вы',
+  emotion: 'sad',
+  avatar: 'guest',
+  avatarEmotion: 'neutral',
+};
 const avatarDefaults: AvatarProps = {
   emotion: 'smirk',
   texts: { channel: '@obshchepit_yama', tagline: 'выживи в общепите' },
@@ -197,6 +210,15 @@ export const RemotionRoot: React.FC = () => {
         id="TikTokCoverEp05"
         component={TikTokCover}
         defaultProps={coverEp05}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={COVER.width}
+        height={COVER.height}
+      />
+      <Composition
+        id="TikTokCoverEp06"
+        component={TikTokCover}
+        defaultProps={coverEp06}
         durationInFrames={1}
         fps={VIDEO.fps}
         width={COVER.width}

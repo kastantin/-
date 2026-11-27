@@ -36,7 +36,7 @@ function drop(frame: number, s: number, len: number, fromY: number, toY: number)
 // 1. Хук: Костя высыпает банку; в кадре 0 предметы уже летят
 export function JarShot({ v }: ShotProps) {
   const frame = useCurrentFrame();
-  const cx = v ? 690 : 600;
+  const cx = v ? 640 : 600;
   const actors: Actor[] = [{ id: 'kostya', emotion: 'neutral', x: 380, vx: 520, vh: 470, live: liveOf(frame, 'jar', 'kostya') }];
   const tilt = interpolate(frame, [0, 10], [140, 165], CLAMP);
   return (
@@ -67,7 +67,7 @@ export function RuleShot({ v }: ShotProps) {
     { id: 'beks', emotion: 'happy', x: 320, vx: 480, vh: 360, live: liveOf(frame, 'rule', 'beks') },
     { id: 'owner', emotion: 'neutral', x: 760, flip: true, vx: 735, vh: 360, live: liveOf(frame, 'rule', 'owner') },
   ];
-  const jarX = v ? [570, 660] : [590, 690];
+  const jarX = v ? [565, 685] : [580, 710];
   return (
     <Stage6
       bg="cashier"
@@ -173,7 +173,7 @@ export function NotesShot({ v }: ShotProps) {
   return (
     <Stage6
       bg="pass"
-      mat={matNow ? { actor: 0, size: 130 } : null}
+      mat={matNow ? { actor: 0, size: 84 } : null}
       vertical={v}
       focus={v ? 560 : 540}
       boilSeed={boil}
@@ -189,7 +189,7 @@ export function NotesShot({ v }: ShotProps) {
 export function JarsShot({ v }: ShotProps) {
   const frame = useCurrentFrame();
   const clang = frame >= 10 && frame < 24 ? Math.sin((frame - 10) * 1.6) * 4 : 0;
-  const jarX = v ? [610, 690] : [640, 760];
+  const jarX = v ? [600, 720] : [640, 760];
   const actors: Actor[] = [
     { id: 'eduard', emotion: 'skeptical', x: 330, vx: 480, vh: 380, live: liveOf(frame, 'jars', 'eduard') },
     { id: 'beks', emotion: 'smirk', x: 960, flip: true, vx: 800, vh: 380, live: liveOf(frame, 'jars', 'beks') },
