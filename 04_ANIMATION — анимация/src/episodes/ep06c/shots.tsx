@@ -213,15 +213,27 @@ export function JarsShot({ v }: ShotProps) {
   );
 }
 
-const BADGE_COLOR = { А: '#e5533d', Б: '#3f7a5a', custom: '#2c9ad6' } as const;
+export const BADGE_COLOR = { А: '#e5533d', Б: '#3f7a5a', custom: '#2c9ad6' } as const;
 
-// Развилка для вертикали: три карточки стопкой и финальная плашка (низ кадра свободен)
-function VerticalFork({ frame }: { frame: number }) {
+export type ForkOption = { badge: keyof typeof BADGE_COLOR; lines: readonly string[]; at: number };
+
+// Развилка для вертикали: три карточки стопкой и финальная плашка (низ кадра свободен); данные по умолчанию — серия 6
+export function VerticalFork({
+  frame,
+  options = LAST.options,
+  finalText = LAST.finalText,
+  finalAt = LAST.finalAt,
+}: {
+  frame: number;
+  options?: readonly ForkOption[];
+  finalText?: string;
+  finalAt?: number;
+}) {
   const { fps } = useVideoConfig();
-  const final = spring({ frame: frame - LAST.finalAt, fps, config: { damping: 14 } });
+  const final = spring({ frame: frame - finalAt, fps, config: { damping: 14 } });
   return (
     <AbsoluteFill style={{ backgroundColor: '#2b2a2e', alignItems: 'center', paddingTop: 520, gap: 24 }}>
-      {LAST.options.map((o, i) => {
+      {options.map((o, i) => {
         const p = spring({ frame: frame - o.at, fps, config: { damping: 11 } });
         return (
           <div
@@ -278,7 +290,7 @@ function VerticalFork({ frame }: { frame: number }) {
           transform: `scale(${0.85 + 0.15 * final})`,
         }}
       >
-        {LAST.finalText}
+        {finalText}
       </div>
     </AbsoluteFill>
   );

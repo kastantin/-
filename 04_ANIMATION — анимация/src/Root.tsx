@@ -21,6 +21,11 @@ import { Episode06, Episode06Vertical } from './episodes/ep06/Episode06';
 import { EP06_DURATION, EP06_VERTICAL_DURATION } from './episodes/ep06/timeline';
 import { EpisodeNaChay, EpisodeNaChayVertical } from './episodes/ep06c/Episode';
 import { EP06C_DURATION } from './episodes/ep06c/timeline';
+import { EpisodeDlyaKosti, EpisodeDlyaKostiVertical, episode07Defaults, type Episode07Props } from './episodes/ep07/Episode';
+import { createTimeline } from './episodes/ep07/timeline';
+
+// Серия 7: длина зависит от варианта сцены 2 (итог голосования серии 6)
+const episode07Metadata = ({ props }: { props: Episode07Props }) => ({ durationInFrames: createTimeline(props.variant).total });
 
 // Серия 2 — одна версия для всех площадок: мат заменён на «мяу» и 🤬 (решение пользователя 21.11.2026)
 const ep02Props: Episode02Props = { censored: true };
@@ -267,6 +272,8 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition id="EpisodeNaChay" component={EpisodeNaChay} durationInFrames={EP06C_DURATION} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition id="EpisodeNaChayVertical" component={EpisodeNaChayVertical} durationInFrames={EP06C_DURATION} fps={VIDEO.fps} width={1080} height={1920} />
+      <Composition id="EpisodeDlyaKosti" component={EpisodeDlyaKosti} defaultProps={episode07Defaults} calculateMetadata={episode07Metadata} durationInFrames={1350} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
+      <Composition id="EpisodeDlyaKostiVertical" component={EpisodeDlyaKostiVertical} defaultProps={episode07Defaults} calculateMetadata={episode07Metadata} durationInFrames={1350} fps={VIDEO.fps} width={1080} height={1920} />
       <Composition id="Episode06" component={Episode06} durationInFrames={EP06_DURATION} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height} />
       <Composition id="Episode06Vertical" component={Episode06Vertical} durationInFrames={EP06_VERTICAL_DURATION} fps={VIDEO.fps} width={1080} height={1920} />
       <Composition

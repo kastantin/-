@@ -13,14 +13,14 @@ const OUTLINE = Array.from({ length: 16 }, (_, i) => {
   .concat(`0 6px 0 ${COLORS.ink}`)
   .join(', ');
 
-function VerticalSubtitle({ text, highlight }: { text: string; highlight?: string }) {
+export function VerticalSubtitle({ text, highlight, top = 260 }: { text: string; highlight?: string; top?: number }) {
   const idx = highlight ? text.indexOf(highlight) : -1;
   const parts = idx >= 0 && highlight ? [text.slice(0, idx), highlight, text.slice(idx + highlight.length)] : [text, '', ''];
   return (
     <div
       style={{
         position: 'absolute',
-        top: 260,
+        top,
         left: 90,
         width: 900,
         fontFamily: 'Segoe UI, Arial, sans-serif',
