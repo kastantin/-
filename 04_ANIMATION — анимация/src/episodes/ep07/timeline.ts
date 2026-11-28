@@ -18,8 +18,9 @@ export type SceneId = 'cold' | 'rule' | 'count' | 'envelope' | 'caught' | 'last'
 export type Speaker = 'kostya' | 'eduard' | 'beks' | 'gena' | 'owner' | 'narrator';
 
 // id реплики → файл озвучки и его длина в секундах (пока пусто: звука в рендере нет, длина — по тексту)
-// Диктор сцены 2 (narr_rule) ждёт итога голосования серии 6 — до тех пор его реплика без звука, длина по тексту
+// Сцена 2: окончательно вариант А («деньгами», решение пользователя 28.11.2026), диктор записан. Вариант Б ('review') без озвучки.
 export const VOICE_FILES: Record<string, string> = {
+  narr_rule_money: 'narr_sc02_A.mp3',
   kostya_cold: 's01_01_kostya.mp3',
   owner_close: 's02_05_margarita.mp3',
   owner_count: 's03_01_margarita.mp3',
@@ -36,6 +37,7 @@ export const VOICE_FILES: Record<string, string> = {
   narr_final: 'narr_karta_final.mp3',
 };
 export const VOICE_SECONDS: Record<string, number> = {
+  narr_rule_money: 5.8,
   kostya_cold: 2.69,
   owner_close: 2.93,
   owner_count: 5.8,
@@ -65,7 +67,7 @@ function rulePlan(variant: RuleVariant): ReadonlyArray<Item> {
     variant === 'money'
       ? 'Вы выбрали деньги. Последний гость оставил Косте двести рублей. Не густо.'
       : 'Вы выбрали отзыв. Пять звёзд и подпись: «Официант приятный. Рыбу не ел». Банка пуста, зато рейтинг растёт.';
-  return [narr('narr_rule', intro, intro, 0), owner];
+  return [narr(`narr_rule_${variant}`, intro, intro, 0), owner];
 }
 
 function plan(variant: RuleVariant): ReadonlyArray<PlanScene> {
@@ -201,7 +203,8 @@ export function createTimeline(variant: RuleVariant) {
   };
 
   const sfx: Record<SceneId, Sfx[]> = {
-    cold: [{ file: 'chaevye_can_clang_a.mp3', at: 2, volume: 0.9 }],
+    // Звон банки — короткий акцент до реплики Кости (измерено: полный файл на 0,9 был почти вровень с голосом)
+    cold: [{ file: 'chaevye_can_clang_a.mp3', at: 2, volume: 0.45, duration: 24, fade: 12 }],
     rule: [{ file: 'card_pop_b.mp3', at: 24, volume: 0.5 }],
     count: [
       { file: 'chaevye_coins_a.mp3', at: 10, volume: 0.7, duration: 60, fade: 12 },
